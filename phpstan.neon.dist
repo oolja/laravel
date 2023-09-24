@@ -1,0 +1,14 @@
+parameters:
+    paths:
+        - app
+        - database/factories
+        - database/seeders
+        - routes
+        - tests
+
+    level: 9
+
+    ignoreErrors:
+        - '#Undefined variable: \$this#'
+includes:
+    - vendor/nunomaduro/larastan/extension.neon
