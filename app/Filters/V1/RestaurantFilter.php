@@ -6,12 +6,15 @@ namespace App\Filters\V1;
 
 use App\Filters\ApiFilter;
 
-class UserFilter extends ApiFilter
+class RestaurantFilter extends ApiFilter
 {
     protected array $filterable = [
         'id' => ['eq', 'ne', 'lt', 'lte', 'gt', 'gte'],
+        'userId' => ['eq', 'ne', 'lt', 'lte', 'gt', 'gte'],
         'name' => ['eq'],
-        'email' => ['eq'],
-        'phone' => ['eq'],
+    ];
+
+    protected array $columnMap = [
+        'userId' => 'user_id',
     ];
 }
