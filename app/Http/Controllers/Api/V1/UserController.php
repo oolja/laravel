@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Filters\V1\UserFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\StoreUserRequest;
 use App\Http\Resources\V1\UserCollection;
 use App\Http\Resources\V1\UserResource;
 use App\Models\User;
@@ -38,21 +39,12 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return JsonResponse
+     * @param StoreUserRequest $request
+     * @return UserResource
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreUserRequest $request): UserResource
     {
-        $user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'password' => $request->input('password'),
-        ]);
-
-        return response()->json([
-           'data' => new UserResource($user),
-        ], 201);
+        return new UserResource(User::create($request->all()));
     }
 
     /**
@@ -69,22 +61,15 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param StoreUserRequest $request
      * @param User $user
-     * @return JsonResponse
+     * @return UserResource
      */
-    public function update(Request $request, User $user): JsonResponse
+    public function update(StoreUserRequest $request, User $user): UserResource
     {
-        $user->update([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'password' => $request->input('password'),
-        ]);
+        $user->update($request->all());
 
-        return response()->json([
-            'data' => new UserResource($user),
-        ], 200);
+        return new UserResource($user);
     }
 
     /**

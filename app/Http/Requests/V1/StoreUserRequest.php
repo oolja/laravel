@@ -1,13 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Requests\V1;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
-class StoreRestaurantRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,13 +18,15 @@ class StoreRestaurantRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array<int, string>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         $rules = [
-            'userId' => ['required', 'integer'],
             'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'unique:users,email,' . $this->route('user')->id, 'email', 'max:255'],
+            'phone' => ['sometimes', 'max:255'],
+            'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()]
         ];
 
         if ($this->method() !== 'PATCH') {
@@ -37,20 +37,9 @@ class StoreRestaurantRequest extends FormRequest
             if (in_array('sometimes', $rule)) {
                 continue;
             }
-
             $rules[$key][] = 'sometimes';
         }
 
         return $rules;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        //TODO Maybe refactor this condition to be more flexible
-        if ($this->userId) {
-            $this->merge([
-                'user_id' => $this->userId
-            ]);
-        }
     }
 }
