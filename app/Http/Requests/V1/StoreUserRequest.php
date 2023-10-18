@@ -25,7 +25,7 @@ class StoreUserRequest extends FormRequest
         $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'unique:users,email,' . $this->route('user')->id, 'email', 'max:255'],
-            'phone' => ['sometimes', 'max:255'],
+            'phone' => ['nullable', 'max:255'],
             'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()]
         ];
 
