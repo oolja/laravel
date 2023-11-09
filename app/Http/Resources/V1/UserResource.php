@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'restaurants' => RestaurantResource::collection($this->whenLoaded('restaurants')),
         ];
     }
 }
