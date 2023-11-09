@@ -11,7 +11,6 @@ use App\Http\Resources\V1\UserCollection;
 use App\Http\Resources\V1\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -19,21 +18,15 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): UserCollection
+    public function index(UserFilter $filter): UserCollection
     {
-        //TODO Create user facade or inject via service container.
-        $filter = new UserFilter();
-        $query = $filter->transform($request);
+        $users = User::where($filter->transform())
+            ->with($filter->include());
 
-        if (!empty($query)) {
-            return new UserCollection(
-                User::where($query)
-                    ->paginate(self::PER_PAGE)
-                    ->appends($request->query())
-            );
-        }
-
-        return new UserCollection(User::paginate(self::PER_PAGE));
+        return new UserCollection(
+            $users->paginate(self::PER_PAGE)
+                ->appends($filter->request->query())
+        );
     }
 
     /**
@@ -50,12 +43,13 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param UserFilter $filter
      * @param User $user
      * @return UserResource
      */
-    public function show(User $user): UserResource
+    public function show(UserFilter $filter, User $user): UserResource
     {
-        return new UserResource($user);
+        return new UserResource($user->loadMissing($filter->include()));
     }
 
     /**

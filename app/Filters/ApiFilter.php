@@ -6,7 +6,7 @@ namespace App\Filters;
 
 use Illuminate\Http\Request;
 
-abstract class ApiFilter
+class ApiFilter
 {
     /**
      * @var array<string, array<string>>
@@ -30,20 +30,25 @@ abstract class ApiFilter
         'gte' => '>=',
     ];
 
+    public function __construct(
+        public readonly Request $request,
+    )
+    {
+    }
+
     /**
-     * @param Request $request
      * @return array<int, array<int,string>>
      */
-    public function transform(Request $request): array
+    public function transform(): array
     {
         $eloQuery = [];
 
         foreach ($this->filterable as $param => $operators) {
-            if (!$request->has($param)) {
+            if (!$this->request->has($param)) {
                 continue;
             }
 
-            $query = $request->query($param);
+            $query = $this->request->query($param);
             $column = $this->columnMap[$param] ?? $param;
 
             foreach ($operators as $operator) {
@@ -55,5 +60,23 @@ abstract class ApiFilter
         }
 
         return $eloQuery;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public function include(): array
+    {
+        if (!$this->request->has('include')) {
+            return [];
+        }
+
+        $include = $this->request->query('include');
+
+        if (is_string($include)) {
+            return explode(',', $include);
+        }
+
+        return [];
     }
 }

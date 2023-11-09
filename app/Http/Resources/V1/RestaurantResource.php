@@ -18,6 +18,7 @@ class RestaurantResource extends JsonResource
             'id' => $this->id,
             'userId' => $this->user_id,
             'name' => $this->name,
+            'user' => UserResource::make($this->whenLoaded('user')),
         ];
     }
 }

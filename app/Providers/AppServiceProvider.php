@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Filters\ApiFilter;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(ApiFilter::class, fn () => new ApiFilter(app(Request::class)));
     }
 
     /**

@@ -11,7 +11,6 @@ use App\Http\Resources\V1\RestaurantCollection;
 use App\Http\Resources\V1\RestaurantResource;
 use App\Models\Restaurant;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
 {
@@ -19,24 +18,18 @@ class RestaurantController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param Request $request
+     * @param RestaurantFilter $filter
      * @return RestaurantCollection
      */
-    public function index(Request $request): RestaurantCollection
+    public function index(RestaurantFilter $filter): RestaurantCollection
     {
-        //TODO Create user facade or inject via service container.
-        $filter = new RestaurantFilter();
-        $query = $filter->transform($request);
+        $restaurants = Restaurant::where($filter->transform())
+            ->with($filter->include());
 
-        if (!empty($query)) {
-            return new RestaurantCollection(
-                Restaurant::where($query)
-                    ->paginate(self::PER_PAGE)
-                    ->appends($request->query())
-            );
-        }
-
-        return new RestaurantCollection(Restaurant::paginate(self::PER_PAGE));
+        return new RestaurantCollection(
+            $restaurants->paginate(self::PER_PAGE)
+                ->appends($filter->request->query())
+        );
     }
 
     /**
@@ -51,12 +44,13 @@ class RestaurantController extends Controller
 
     /**
      * Display the specified resource.
+     * @param RestaurantFilter $filter
      * @param Restaurant $restaurant
      * @return RestaurantResource
      */
-    public function show(Restaurant $restaurant): RestaurantResource
+    public function show(RestaurantFilter $filter, Restaurant $restaurant): RestaurantResource
     {
-        return new RestaurantResource($restaurant);
+        return new RestaurantResource($restaurant->loadMissing($filter->include()));
     }
 
     /**

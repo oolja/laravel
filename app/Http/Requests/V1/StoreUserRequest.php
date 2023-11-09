@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\V1;
 
+use App\Models\User;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -18,13 +20,23 @@ class StoreUserRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
+
+        $uniqueEmail = 'unique:users';
+
+        if (in_array($this->method(), ['PUT', 'PATCH'])) {
+            /** @var User $user */
+            $user = $this->route('user');
+            $id = $user->id;
+            $uniqueEmail .= ",email,$id";
+        }
+
         $rules = [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'unique:users,email,' . $this->route('user')->id, 'email', 'max:255'],
+            'email' => ['required', $uniqueEmail, 'email', 'max:255'],
             'phone' => ['nullable', 'max:255'],
             'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()]
         ];

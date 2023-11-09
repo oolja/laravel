@@ -6,10 +6,10 @@ namespace App\Http\Resources\V1;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use JsonSerializable;
 
-class UserCollection extends JsonResource
+class UserCollection extends ResourceCollection
 {
     /**
      * Transform the resource into an array.
