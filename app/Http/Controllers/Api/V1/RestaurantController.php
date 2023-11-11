@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Filters\V1\RestaurantFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\StoreRestaurantRequest;
+use App\Http\Requests\V1\UpdateRestaurantRequest;
 use App\Http\Resources\V1\RestaurantCollection;
 use App\Http\Resources\V1\RestaurantResource;
 use App\Models\Restaurant;
@@ -55,11 +56,11 @@ class RestaurantController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param StoreRestaurantRequest $request
+     * @param UpdateRestaurantRequest $request
      * @param Restaurant $restaurant
      * @return RestaurantResource
      */
-    public function update(StoreRestaurantRequest $request, Restaurant $restaurant): RestaurantResource
+    public function update(UpdateRestaurantRequest $request, Restaurant $restaurant): RestaurantResource
     {
         $restaurant->update($request->all());
 

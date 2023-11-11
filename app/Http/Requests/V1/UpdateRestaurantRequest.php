@@ -7,7 +7,7 @@ namespace App\Http\Requests\V1;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRestaurantRequest extends FormRequest
+class UpdateRestaurantRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,14 +20,26 @@ class StoreRestaurantRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array<int, string>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'userId' => ['required', 'integer'],
             'name' => ['required', 'string', 'max:255'],
         ];
+
+        if ($this->method() === 'PATCH') {
+            foreach ($rules as $key => $rule) {
+                if (in_array('sometimes', $rule)) {
+                    continue;
+                }
+
+                $rules[$key][] = 'sometimes';
+            }
+        }
+
+        return $rules;
     }
 
     protected function prepareForValidation(): void
