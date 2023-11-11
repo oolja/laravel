@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Filters\V1\UserFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\StoreUserRequest;
+use App\Http\Requests\V1\UpdateUserRequest;
 use App\Http\Resources\V1\UserCollection;
 use App\Http\Resources\V1\UserResource;
 use App\Models\User;
@@ -55,11 +56,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param StoreUserRequest $request
+     * @param UpdateUserRequest $request
      * @param User $user
      * @return UserResource
      */
-    public function update(StoreUserRequest $request, User $user): UserResource
+    public function update(UpdateUserRequest $request, User $user): UserResource
     {
         $user->update($request->all());
 
