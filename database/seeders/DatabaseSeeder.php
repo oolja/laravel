@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
 use App\Models\Restaurant;
 use App\Models\User;
-use Database\Factories\RestaurantFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,13 +16,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         User::factory(10)
-             ->has(Restaurant::factory()->count(2))
-             ->create();
+        User::factory(10)
+            ->has(
+                Restaurant::factory()
+                    ->count(2)
+                    ->has(Category::factory()->count(10))
+            )
+            ->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+//        $this->call([
+//            UserSeeder::class,
+//            RestaurantSeeder::class,
+//            CategorySeeder::class
+//        ]);
     }
 }
