@@ -24,6 +24,8 @@ class UserController extends Controller
         $users = User::where($filter->transform())
             ->with($filter->include());
 
+        $users = $filter->sort($users);
+
         return new UserCollection(
             $users->paginate(self::PER_PAGE)
                 ->appends($filter->request->query())

@@ -15,6 +15,8 @@ class CategoryFilter extends ApiFilter
         'active' => ['eq']
     ];
 
+    protected array $sortable = ['id', 'restaurantId', 'name', 'priority'];
+
     protected array $columnMap = [
         'restaurantId' => 'restaurant_id',
     ];

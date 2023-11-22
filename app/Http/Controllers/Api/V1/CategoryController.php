@@ -28,6 +28,8 @@ class CategoryController extends Controller
         $categories = Category::where($filter->transform())
             ->with($filter->include());
 
+        $categories = $filter->sort($categories);
+
         return new CategoryCollection(
             $categories->paginate(self::PER_PAGE)
                 ->appends($filter->request->query())

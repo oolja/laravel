@@ -11,5 +11,8 @@ parameters:
     ignoreErrors:
         - '#Undefined variable: \$this#'
         - '#Access to an undefined property App\\Http\\Resources\\V1\\[a-zA-Z0-9::a-zA-Z]#'
+
+    checkGenericClassInNonGenericObjectType: false
+
 includes:
     - vendor/nunomaduro/larastan/extension.neon

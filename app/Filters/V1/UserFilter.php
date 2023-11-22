@@ -14,4 +14,6 @@ class UserFilter extends ApiFilter
         'email' => ['eq'],
         'phone' => ['eq'],
     ];
+
+    protected array $sortable = ['id', 'name'];
 }

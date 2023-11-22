@@ -27,6 +27,8 @@ class RestaurantController extends Controller
         $restaurants = Restaurant::where($filter->transform())
             ->with($filter->include());
 
+        $filter->sort($restaurants);
+
         return new RestaurantCollection(
             $restaurants->paginate(self::PER_PAGE)
                 ->appends($filter->request->query())

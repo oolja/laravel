@@ -14,6 +14,8 @@ class RestaurantFilter extends ApiFilter
         'name' => ['eq'],
     ];
 
+    protected array $sortable = ['id', 'userId', 'name'];
+
     protected array $columnMap = [
         'userId' => 'user_id',
     ];

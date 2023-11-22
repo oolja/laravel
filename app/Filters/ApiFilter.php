@@ -4,18 +4,24 @@ declare(strict_types=1);
 
 namespace App\Filters;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ApiFilter
 {
     /**
-     * @var array<string, array<string>>
+     * @var array<string, array<int, string>>
      */
     protected array $filterable = [];
     /**
      * @var array<string, string>
      */
     protected array $columnMap = [];
+
+    /**
+     * @var array<int, string>
+     */
+    protected array $sortable = [];
 
     //TODO Maybe move operator map in child classes? Find way to support IN and LIKE operators
     /**
@@ -78,5 +84,37 @@ class ApiFilter
         }
 
         return [];
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function sort(Builder $builder): Builder
+    {
+        if (!$this->request->has('sort')) {
+            return $builder;
+        }
+
+        $sort = $this->request->query('sort');
+        if (!is_string($sort)) {
+            return $builder;
+        }
+
+        $fields = explode(',', $sort);
+
+        foreach ($fields as $field) {
+            $column = ltrim($field, '-');
+            if (!in_array($column, $this->sortable)) {
+                continue;
+            }
+
+            $direction = ($field[0] === '-') ? 'desc' : 'asc';
+            $column = $this->columnMap[$column] ?? $column;
+
+            $builder->orderBy($column, $direction);
+        }
+
+        return $builder;
     }
 }
