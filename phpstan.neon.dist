@@ -15,4 +15,4 @@ parameters:
     checkGenericClassInNonGenericObjectType: false
 
 includes:
-    - vendor/nunomaduro/larastan/extension.neon
+    - vendor/larastan/larastan/extension.neon
