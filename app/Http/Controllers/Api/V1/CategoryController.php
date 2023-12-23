@@ -26,6 +26,10 @@ class CategoryController extends Controller
     public function index(CategoryFilter $filter): CategoryCollection
     {
         $categories = Category::where($filter->transform())
+            // TODO: Implement 'withWhereHas' method or find way to filter related columns
+//            ->whereHas('items', function ($query) use ($filter) {
+//                $query->where($filter->transformItems());
+//            })
             ->with($filter->include());
 
         $categories = $filter->sort($categories);
