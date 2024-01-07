@@ -32,8 +32,10 @@ class UpdateUserRequest extends FormRequest
         $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', "unique:users,email,$user->id", 'email', 'max:255'],
+            'type' => ['required', 'in:customer,admin'],
+            'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
             'phone' => ['nullable', 'max:255'],
-            'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()]
+
         ];
 
         if ($this->method() === 'PATCH') {
