@@ -12,6 +12,7 @@ class UserFilter extends ApiFilter
         'id' => ['eq', 'ne', 'lt', 'lte', 'gt', 'gte'],
         'name' => ['eq'],
         'email' => ['eq'],
+        'type' => ['eq', 'ne'],
         'phone' => ['eq'],
     ];
 
