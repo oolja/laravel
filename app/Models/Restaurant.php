@@ -13,7 +13,7 @@ class Restaurant extends Model
 {
     use HasFactory;
 
-     protected $fillable = ['user_id', 'name'];
+     protected $fillable = ['user_id', 'image_id', 'name'];
 
     /**
      * @return BelongsTo<User, Restaurant>
@@ -29,5 +29,13 @@ class Restaurant extends Model
     public function categories(): HasMany
     {
         return $this->hasMany(Category::class);
+    }
+
+    /**
+     * @return BelongsTo<Image, Restaurant>
+     */
+    public function image(): BelongsTo
+    {
+        return $this->belongsTo(Image::class);
     }
 }

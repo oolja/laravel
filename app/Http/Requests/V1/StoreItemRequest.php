@@ -26,9 +26,20 @@ class StoreItemRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'description' => ['sometimes', 'string', 'max:1024'],
+            'imageId' => ['sometimes', 'integer'],
             'price' => ['required', 'decimal:2'],
             'active' => ['required', 'boolean'],
             'categories' => ['sometimes', 'array'],
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        //TODO Maybe refactor this condition to be more flexible
+        if ($this->imageId) {
+            $this->merge([
+                'image_id' => $this->imageId
+            ]);
+        }
     }
 }

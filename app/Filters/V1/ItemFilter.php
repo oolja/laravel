@@ -11,6 +11,7 @@ class ItemFilter extends ApiFilter
     protected array $filterable = [
         'id' => ['eq', 'ne', 'lt', 'lte', 'gt', 'gte'],
         'name' => ['eq'],
+        'imageId' => ['eq', 'ne', 'lt', 'lte', 'gt', 'gte'],
         'price' => ['eq', 'ne', 'lt', 'lte', 'gt', 'gte'],
         'active' => ['eq']
     ];
@@ -19,6 +20,7 @@ class ItemFilter extends ApiFilter
 
     protected array $columnMap = [
         'categoryId' => 'category_id',
+        'imageId' => 'image_id',
         'categoriesActive' => 'categories.active',
         'categoriesRestaurantId' => 'categories.restaurant_id'
     ];

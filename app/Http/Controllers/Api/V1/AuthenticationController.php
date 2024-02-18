@@ -12,6 +12,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AuthenticationController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function signIn(Request $request): JsonResponse
     {
         $credentials = $request->only(['email', 'password']);
@@ -31,6 +35,9 @@ class AuthenticationController extends Controller
         return response()->json(['token' => $token->plainTextToken]);
     }
 
+    /**
+     * @return JsonResponse
+     */
     public function signOut(): JsonResponse
     {
         Auth::user()?->tokens()->delete();

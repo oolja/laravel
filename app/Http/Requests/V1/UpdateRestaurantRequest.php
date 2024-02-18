@@ -26,6 +26,7 @@ class UpdateRestaurantRequest extends FormRequest
     {
         $rules = [
             'userId' => ['required', 'integer'],
+            'imageId' => ['sometimes', 'integer'],
             'name' => ['required', 'string', 'max:255'],
         ];
 
@@ -48,6 +49,12 @@ class UpdateRestaurantRequest extends FormRequest
         if ($this->userId) {
             $this->merge([
                 'user_id' => $this->userId
+            ]);
+        }
+
+        if ($this->imageId) {
+            $this->merge([
+                'image_id' => $this->imageId
             ]);
         }
     }

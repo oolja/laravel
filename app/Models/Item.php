@@ -6,13 +6,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Item extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category_id', 'name', 'description', 'price', 'active'];
+    protected $fillable = ['category_id', 'name', 'description', 'image_id', 'price', 'active'];
 
     /**
      * The model's default values for attributes.
@@ -29,5 +30,13 @@ class Item extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class)->withPivot('priority');
+    }
+
+    /**
+     * @return BelongsTo<Image, Item>
+     */
+    public function image(): BelongsTo
+    {
+        return $this->belongsTo(Image::class);
     }
 }

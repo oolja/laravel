@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('image_id')
+                ->nullable();
             $table->string('name');
             $table->timestamps();
 
@@ -23,6 +25,11 @@ return new class extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+
+            $table->foreign('image_id')
+                ->references('id')
+                ->on('images')
+                ->onDelete('set null');
         });
     }
 

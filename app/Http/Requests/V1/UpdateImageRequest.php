@@ -6,7 +6,7 @@ namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateItemRequest extends FormRequest
+class UpdateImageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,8 @@ class UpdateItemRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['sometimes', 'string', 'max:1024'],
-            'imageId' => ['sometimes', 'integer'],
-            'price' => ['required', 'decimal:2'],
-            'active' => ['required', 'boolean'],
-            'categories' => ['sometimes', 'array'],
+            'image' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
+            'description' => ['sometimes', 'string', 'max:256'],
         ];
 
         if ($this->method() === 'PATCH') {
@@ -43,15 +39,5 @@ class UpdateItemRequest extends FormRequest
         }
 
         return $rules;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        //TODO Maybe refactor this condition to be more flexible
-        if ($this->imageId) {
-            $this->merge([
-                'image_id' => $this->imageId
-            ]);
-        }
     }
 }
