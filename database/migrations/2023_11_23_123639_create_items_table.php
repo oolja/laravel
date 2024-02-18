@@ -18,11 +18,18 @@ return new class extends Migration
             $table->string('name');
             $table->string('description', 1024)
                 ->nullable();
+            $table->unsignedBigInteger('image_id')
+                ->nullable();
             $table->decimal('price');
             $table->boolean('active')
                 ->default(false)
                 ->index();
             $table->timestamps();
+
+            $table->foreign('image_id')
+                ->references('id')
+                ->on('images')
+                ->onDelete('set null');
         });
     }
 

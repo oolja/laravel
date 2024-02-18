@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\AuthenticationController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\ImageController;
 use App\Http\Controllers\Api\V1\ItemController;
 use App\Http\Controllers\Api\V1\RestaurantController;
 use App\Http\Controllers\Api\V1\UserController;
@@ -59,4 +60,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         Route::patch('/items/{item}', 'update')->middleware(['auth:sanctum', 'ability:admin,customer']);
         Route::delete('/items/{item}', 'destroy')->middleware(['auth:sanctum', 'ability:admin,customer']);
     });
+
+    Route::apiResource('images', ImageController::class)->middleware(['auth:sanctum', 'ability:admin,customer']);
 });

@@ -21,6 +21,7 @@ class ItemFactory extends Factory
         return [
             'name' => fake()->word(),
             'description' => fake()->sentence(10),
+            'image_id' => null,
             'price' => fake()->randomFloat(2, 0, 8),
             'active' => fake()->boolean,
 //            'priority' => fake()->randomDigitNotNull(),

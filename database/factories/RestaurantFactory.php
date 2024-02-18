@@ -21,6 +21,7 @@ class RestaurantFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
+            'image_id' => null,
             'name' => fake()->company(),
         ];
     }

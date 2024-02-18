@@ -11,6 +11,7 @@ class RestaurantFilter extends ApiFilter
     protected array $filterable = [
         'id' => ['eq', 'ne', 'lt', 'lte', 'gt', 'gte'],
         'userId' => ['eq', 'ne', 'lt', 'lte', 'gt', 'gte'],
+        'imageId' => ['eq', 'ne', 'lt', 'lte', 'gt', 'gte'],
         'name' => ['eq'],
     ];
 
