@@ -24,10 +24,11 @@ class RestaurantController extends Controller
      */
     public function index(RestaurantFilter $filter): RestaurantCollection
     {
+        $r = Restaurant::has('categories', '=', 1)->get();dd($r);
         $restaurants = Restaurant::where($filter->transform())
             ->with($filter->include());
 
-        $filter->sort($restaurants);
+        $restaurants = $filter->sort($restaurants);
 
         return new RestaurantCollection(
             $restaurants->paginate(self::PER_PAGE)
