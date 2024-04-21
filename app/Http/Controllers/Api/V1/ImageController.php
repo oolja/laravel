@@ -38,12 +38,10 @@ class ImageController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param StoreImageRequest $request
-     * @return ImageResource
      */
     public function store(StoreImageRequest $request): ImageResource
     {
-        /** @var  UploadedFile $file */
+        /** @var UploadedFile $file */
         $file = $request->file('image');
 
         return new ImageResource(Image::create([
@@ -54,9 +52,6 @@ class ImageController extends Controller
 
     /**
      * Display the specified resource.
-     * @param ImageFilter $filter
-     * @param Image $image
-     * @return ImageResource
      */
     public function show(ImageFilter $filter, Image $image): ImageResource
     {
@@ -65,9 +60,6 @@ class ImageController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param UpdateImageRequest $request
-     * @param Image $image
-     * @return ImageResource
      */
     public function update(UpdateImageRequest $request, Image $image): ImageResource
     {
@@ -78,17 +70,16 @@ class ImageController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Image $image
-     * @return JsonResponse
      */
     public function destroy(Image $image): JsonResponse
     {
 
         $file = public_path(Storage::url($image->image));
 
-        if(File::exists($file)){
+        if (File::exists($file)) {
             File::delete($file);
             $image->delete();
+
             return response()->json(null, 204);
         } else {
             abort(404);

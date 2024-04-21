@@ -37,7 +37,7 @@ class StoreCategoryRequest extends FormRequest
         //TODO Maybe refactor this condition to be more flexible
         if ($this->restaurantId) {
             $this->merge([
-                'restaurant_id' => $this->restaurantId
+                'restaurant_id' => $this->restaurantId,
             ]);
         }
     }

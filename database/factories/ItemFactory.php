@@ -24,7 +24,7 @@ class ItemFactory extends Factory
             'image_id' => null,
             'price' => fake()->randomFloat(2, 0, 8),
             'active' => fake()->boolean,
-//            'priority' => fake()->randomDigitNotNull(),
+            //            'priority' => fake()->randomDigitNotNull(),
         ];
     }
 }

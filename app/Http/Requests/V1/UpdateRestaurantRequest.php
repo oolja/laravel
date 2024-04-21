@@ -48,13 +48,13 @@ class UpdateRestaurantRequest extends FormRequest
         //TODO Maybe refactor this condition to be more flexible
         if ($this->userId) {
             $this->merge([
-                'user_id' => $this->userId
+                'user_id' => $this->userId,
             ]);
         }
 
         if ($this->imageId) {
             $this->merge([
-                'image_id' => $this->imageId
+                'image_id' => $this->imageId,
             ]);
         }
     }

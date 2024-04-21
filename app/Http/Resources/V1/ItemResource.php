@@ -23,7 +23,7 @@ class ItemResource extends JsonResource
             'imageId' => $this->image_id,
             'price' => $this->price,
             'active' => $this->active,
-            'priority' => $this->whenPivotLoaded('category_item', fn() => $this->pivot->priority),
+            'priority' => $this->whenPivotLoaded('category_item', fn () => $this->pivot->priority),
             'image' => ImageResource::make($this->whenLoaded('image')),
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
         ];

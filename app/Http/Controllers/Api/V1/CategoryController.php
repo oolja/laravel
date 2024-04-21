@@ -17,11 +17,8 @@ class CategoryController extends Controller
 {
     private const PER_PAGE = 5;
 
-
     /**
      * Display a listing of the resource.
-     * @param CategoryFilter $filter
-     * @return CategoryCollection
      */
     public function index(CategoryFilter $filter): CategoryCollection
     {
@@ -42,8 +39,6 @@ class CategoryController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param StoreCategoryRequest $request
-     * @return CategoryResource
      */
     public function store(StoreCategoryRequest $request): CategoryResource
     {
@@ -52,9 +47,6 @@ class CategoryController extends Controller
 
     /**
      * Display the specified resource.
-     * @param CategoryFilter $filter
-     * @param Category $category
-     * @return CategoryResource
      */
     public function show(CategoryFilter $filter, Category $category): CategoryResource
     {
@@ -63,9 +55,6 @@ class CategoryController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param UpdateCategoryRequest $request
-     * @param Category $category
-     * @return CategoryResource
      */
     public function update(UpdateCategoryRequest $request, Category $category): CategoryResource
     {
@@ -76,12 +65,11 @@ class CategoryController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Category $category
-     * @return JsonResponse
      */
     public function destroy(Category $category): JsonResponse
     {
         $category->delete();
+
         return response()->json(null, 204);
     }
 }

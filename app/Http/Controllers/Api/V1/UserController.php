@@ -16,6 +16,7 @@ use Illuminate\Http\JsonResponse;
 class UserController extends Controller
 {
     private const PER_PAGE = 5;
+
     /**
      * Display a listing of the resource.
      */
@@ -34,9 +35,6 @@ class UserController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param StoreUserRequest $request
-     * @return UserResource
      */
     public function store(StoreUserRequest $request): UserResource
     {
@@ -45,10 +43,6 @@ class UserController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param UserFilter $filter
-     * @param User $user
-     * @return UserResource
      */
     public function show(UserFilter $filter, User $user): UserResource
     {
@@ -57,10 +51,6 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param UpdateUserRequest $request
-     * @param User $user
-     * @return UserResource
      */
     public function update(UpdateUserRequest $request, User $user): UserResource
     {
@@ -71,13 +61,11 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param User $user
-     * @return JsonResponse
      */
     public function destroy(User $user): JsonResponse
     {
         $user->delete();
+
         return response()->json(null, 204);
     }
 }
