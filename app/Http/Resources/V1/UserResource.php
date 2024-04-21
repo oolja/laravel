@@ -20,7 +20,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'type' =>$this->type,
+            'type' => $this->type,
             'phone' => $this->phone,
             'restaurants' => RestaurantResource::collection($this->whenLoaded('restaurants')),
         ];

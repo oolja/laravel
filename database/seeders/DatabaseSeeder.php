@@ -28,11 +28,11 @@ class DatabaseSeeder extends Seeder
             )
             ->create();
 
-//        $this->call([
-//            UserSeeder::class,
-//            RestaurantSeeder::class,
-//            CategorySeeder::class,
-//            ItemSeeder::class
-//        ]);
+        //        $this->call([
+        //            UserSeeder::class,
+        //            RestaurantSeeder::class,
+        //            CategorySeeder::class,
+        //            ItemSeeder::class
+        //        ]);
     }
 }

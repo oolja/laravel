@@ -22,7 +22,7 @@ class Category extends Model
      */
     protected $attributes = [
         'active' => false,
-        'priority' => 0
+        'priority' => 0,
     ];
 
     /**

@@ -19,8 +19,6 @@ class ItemController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param ItemFilter $filter
-     * @return ItemCollection
      */
     public function index(ItemFilter $filter): ItemCollection
     {
@@ -40,10 +38,8 @@ class ItemController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param StoreItemRequest $request
-     * @return ItemResource
      */
-    public function store(StoreItemRequest $request):ItemResource
+    public function store(StoreItemRequest $request): ItemResource
     {
         $item = Item::create($request->all());
 
@@ -56,9 +52,6 @@ class ItemController extends Controller
 
     /**
      * Display the specified resource.
-     * @param ItemFilter $filter
-     * @param Item $item
-     * @return ItemResource
      */
     public function show(ItemFilter $filter, Item $item): ItemResource
     {
@@ -67,9 +60,6 @@ class ItemController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param UpdateItemRequest $request
-     * @param Item $item
-     * @return ItemResource
      */
     public function update(UpdateItemRequest $request, Item $item): ItemResource
     {
@@ -85,12 +75,11 @@ class ItemController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Item $item
-     * @return JsonResponse
      */
     public function destroy(Item $item): JsonResponse
     {
         $item->delete();
+
         return response()->json(null, 204);
     }
 }

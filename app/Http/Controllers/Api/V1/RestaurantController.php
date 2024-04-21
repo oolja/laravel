@@ -19,12 +19,9 @@ class RestaurantController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param RestaurantFilter $filter
-     * @return RestaurantCollection
      */
     public function index(RestaurantFilter $filter): RestaurantCollection
     {
-        $r = Restaurant::has('categories', '=', 1)->get();dd($r);
         $restaurants = Restaurant::where($filter->transform())
             ->with($filter->include());
 
@@ -38,8 +35,6 @@ class RestaurantController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param StoreRestaurantRequest $request
-     * @return RestaurantResource
      */
     public function store(StoreRestaurantRequest $request): RestaurantResource
     {
@@ -48,9 +43,6 @@ class RestaurantController extends Controller
 
     /**
      * Display the specified resource.
-     * @param RestaurantFilter $filter
-     * @param Restaurant $restaurant
-     * @return RestaurantResource
      */
     public function show(RestaurantFilter $filter, Restaurant $restaurant): RestaurantResource
     {
@@ -59,9 +51,6 @@ class RestaurantController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param UpdateRestaurantRequest $request
-     * @param Restaurant $restaurant
-     * @return RestaurantResource
      */
     public function update(UpdateRestaurantRequest $request, Restaurant $restaurant): RestaurantResource
     {
@@ -72,12 +61,11 @@ class RestaurantController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Restaurant $restaurant
-     * @return JsonResponse
      */
     public function destroy(Restaurant $restaurant): JsonResponse
     {
         $restaurant->delete();
+
         return response()->json(null, 204);
     }
 }

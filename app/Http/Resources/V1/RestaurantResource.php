@@ -23,7 +23,7 @@ class RestaurantResource extends JsonResource
             'name' => $this->name,
             'user' => UserResource::make($this->whenLoaded('user')),
             'image' => ImageResource::make($this->whenLoaded('image')),
-            'categories' => CategoryResource::collection($this->whenLoaded('categories'))
+            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
         ];
     }
 }

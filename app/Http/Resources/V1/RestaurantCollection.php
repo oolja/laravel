@@ -14,7 +14,6 @@ class RestaurantCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request $request
      * @return array<int, array<string, mixed>>|Arrayable<string, mixed>|JsonSerializable
      */
     public function toArray(Request $request): array|Arrayable|JsonSerializable

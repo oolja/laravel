@@ -12,7 +12,7 @@ class CategoryFilter extends ApiFilter
         'id' => ['eq', 'ne', 'lt', 'lte', 'gt', 'gte'],
         'restaurantId' => ['eq', 'ne', 'lt', 'lte', 'gt', 'gte'],
         'name' => ['eq'],
-        'active' => ['eq']
+        'active' => ['eq'],
     ];
 
     protected array $sortable = ['id', 'restaurantId', 'name', 'priority'];

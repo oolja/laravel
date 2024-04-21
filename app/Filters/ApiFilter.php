@@ -13,6 +13,7 @@ class ApiFilter
      * @var array<string, array<int, string>>
      */
     protected array $filterable = [];
+
     /**
      * @var array<string, string>
      */
@@ -38,8 +39,7 @@ class ApiFilter
 
     public function __construct(
         public readonly Request $request,
-    )
-    {
+    ) {
     }
 
     /**
@@ -50,7 +50,7 @@ class ApiFilter
         $eloQuery = [];
 
         foreach ($this->filterable as $param => $operators) {
-            if (!$this->request->has($param)) {
+            if (! $this->request->has($param)) {
                 continue;
             }
 
@@ -58,7 +58,7 @@ class ApiFilter
             $column = $this->columnMap[$param] ?? $param;
 
             foreach ($operators as $operator) {
-                if (!isset($query[$operator])) {
+                if (! isset($query[$operator])) {
                     continue;
                 }
                 $eloQuery[] = [$column, $this->operatorMap[$operator], $query[$operator]];
@@ -73,7 +73,7 @@ class ApiFilter
      */
     public function include(): array
     {
-        if (!$this->request->has('include')) {
+        if (! $this->request->has('include')) {
             return [];
         }
 
@@ -86,18 +86,14 @@ class ApiFilter
         return [];
     }
 
-    /**
-     * @param Builder $builder
-     * @return Builder
-     */
     public function sort(Builder $builder): Builder
     {
-        if (!$this->request->has('sort')) {
+        if (! $this->request->has('sort')) {
             return $builder;
         }
 
         $sort = $this->request->query('sort');
-        if (!is_string($sort)) {
+        if (! is_string($sort)) {
             return $builder;
         }
 
@@ -105,7 +101,7 @@ class ApiFilter
 
         foreach ($fields as $field) {
             $column = ltrim($field, '-');
-            if (!in_array($column, $this->sortable)) {
+            if (! in_array($column, $this->sortable)) {
                 continue;
             }
 

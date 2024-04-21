@@ -13,7 +13,7 @@ class Restaurant extends Model
 {
     use HasFactory;
 
-     protected $fillable = ['user_id', 'image_id', 'name'];
+    protected $fillable = ['user_id', 'image_id', 'name'];
 
     /**
      * @return BelongsTo<User, Restaurant>
